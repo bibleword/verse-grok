@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>每日圣经经文</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+  <div id="root" class="min-h-screen bg-gray-100 flex items-center justify-center"></div>
+  <script type="text/babel">
+    const { useState, useEffect } = React;
+
+    const BibleVerse = () => {
+      const [verse, setVerse] = useState({ text: '', reference: '' });
+
+      useEffect(() => {
+        // 模拟每日经文数据（实际中可替换为API调用）
+        const verses = [
+          { text: '耶和华是我的牧者，我必不至缺乏。', reference: '诗篇 23:1' },
+          { text: '你要专心仰赖耶和华，不可倚靠自己的聪明。', reference: '箴言 3:5' },
+          // 可添加更多经文
+        ];
+        const today = new Date();
+        const seed = today.getDate() + today.getMonth() * 31;
+        const selectedVerse = verses[seed % verses.length];
+        setVerse(selectedVerse);
+      }, []);
+
+      return (
+        <div className="p-4 max-w-md mx-auto bg-white rounded-lg shadow-lg">
+          <h1 className="text-2xl font-bold text-center text-gray-800 mb-4">每日圣经经文</h1>
+          <p className="text-lg text-gray-700">{verse.text}</p>
+          <p className="text-md text-gray-500 text-right mt-2">—— {verse.reference}</p>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<BibleVerse />, document.getElementById('root'));
+  </script>
+</body>
+</html>
